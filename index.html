@@ -1,23 +1,466 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <title>🚗 당신의 자동차 보험 네비게이터</title>
+  
+  
+  
+  <style>
+        /* CSS: 다채롭고 부드러운 색감, 명확한 계층 구조 */
+        :root {
+            --color-primary: #5A7BB0; /* 차분한 블루 */
+            --color-secondary: #90B4CE; /* 밝은 스카이 블루 */
+            --color-background: #F4F7F8; /* 부드러운 배경 */
+            --color-card-bg: #FFFFFF; /* 카드 배경 */
+            --color-text-main: #333333; /* 기본 텍스트 */
+            --color-text-sub: #666666; /* 보조 텍스트 */
+            --color-accent: #FFD166; /* 강조 색상 (따뜻한 옐로우) */
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Roboto, 'Noto Sans KR', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .category-section {
+            background-color: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .category-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .category-section h2 {
+            font-size: 1.8em;
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .link-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .link-item {
+            background-color: var(--color-background);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 5px solid var(--color-secondary);
+            transition: background-color 0.2s, border-left-color 0.2s;
+        }
+
+        .link-item:hover {
+            background-color: #E8ECED; /* 배경 살짝 어둡게 */
+            border-left-color: var(--color-primary);
+        }
+
+        .link-item p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--color-text-main);
+            font-weight: 500;
+        }
+
+        .link-item a {
+            color: inherit; /* 텍스트 색상을 부모에서 상속 */
+            text-decoration: none;
+            display: block; /* 전체 문구가 클릭 가능하게 */
+            font-weight: bold;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .link-item a:hover {
+            color: var(--color-primary); /* 호버 시 강조 색상 */
+        }
+        
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .link-list {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 최적의 자동차 보험 길잡이</h1>
+            <p>다이렉트부터 맞춤형 설계까지, 복잡한 보험의 세계를 명료하게 안내합니다.</p>
+        </header>
+
+        <main id="categories-container">
+            </main>
+    </div>
+
+    <script>
+        // 1. 원본 데이터
+        const allLinks = [
+            { link: 'https://directkpmol.withusdone.com/', text: '자동차보험가입방법' },
+            { link: 'https://directkpmom.withusdone.com/', text: '자동차보험저렴' },
+            { link: 'https://directkpmon.withusdone.com/', text: '자동차 보험료 싼 곳' },
+            { link: 'https://directkpmoo.withusdone.com/', text: '차보험확인' },
+            { link: 'https://directkpmop.withusdone.com/', text: '차량보험료계산' },
+            { link: 'https://directkpmoq.withusdone.com/', text: '자동차책임보험가입방법' },
+            { link: 'https://directkpmor.withusdone.com/', text: '자동차보험사순위' },
+            { link: 'https://directkpmos.withusdone.com/', text: '전기차자동차보험' },
+            { link: 'https://directkpmot.withusdone.com/', text: '자동차보험점유율' },
+            { link: 'https://directkpmou.withusdone.com/', text: '자동차보험가입내역조회' },
+            { link: 'https://directkpmov.withusdone.com/', text: '자동차보험료카드' },
+            { link: 'https://directkpmow.withusdone.com/', text: '자동차보험상담' },
+            { link: 'https://directkpmox.withusdone.com/', text: '자동차보험료비교사이트' },
+            { link: 'https://directkpmoy.withusdone.com/', text: '자동차의무보험가입' },
+            { link: 'https://directkpmoz.withusdone.com/', text: '차보험료비교' },
+            { link: 'https://directlpmoa.withusdone.com/', text: '레이자동차보험' },
+            { link: 'https://directlpmob.withusdone.com/', text: '자동차보험료갱신' },
+            { link: 'https://directlpmoc.withusdone.com/', text: '아이오닉9보험료' },
+            { link: 'https://directlpmod.withusdone.com/', text: '첫차보험' },
+            { link: 'https://directlpmoe.withusdone.com/', text: '자동차보험가입혜택' },
+            { link: 'https://directlpmof.withusdone.com/', text: '자동차다이렉트보험비교견적' },
+            { link: 'https://directlpmog.withusdone.com/', text: '이쿼녹스EV 보험료' },
+            { link: 'https://directlpmoh.withusdone.com/', text: '자동차보험당일가입' },
+            { link: 'https://directlpmoi.withusdone.com/', text: '자동차다이렉트비교' },
+            { link: 'https://directlpmoj.withusdone.com/', text: '자동차책임보험료' },
+            { link: 'https://directlpmok.withusdone.com/', text: '제네시스 GV90 보험료' },
+            { link: 'https://directlpmol.withusdone.com/', text: '화물자동차보험' },
+            { link: 'https://directlpmom.withusdone.com/', text: '인터넷 자동차 보험' },
+            { link: 'https://directlpmon.withusdone.com/', text: '1톤트럭보험료' },
+            { link: 'https://directlpmoo.withusdone.com/', text: '자동차보험싸게' },
+            { link: 'https://directlpmop.withusdone.com/', text: '자동차보험등록' },
+            { link: 'https://directlpmoq.withusdone.com/', text: '카이엔 보험료' },
+            { link: 'https://directlpmor.withusdone.com/', text: '40대자동차보험' },
+            { link: 'https://directlpmos.withusdone.com/', text: '자동차보험알아보기' },
+            { link: 'https://directlpmot.withusdone.com/', text: '자동차보험신규가입' },
+            { link: 'https://directlpmou.withusdone.com/', text: '코란도 kr10 보험료' },
+            { link: 'https://directlpmov.withusdone.com/', text: '자동차보험비교어플' },
+            { link: 'https://directlpmow.withusdone.com/', text: '차량의무보험' },
+            { link: 'https://directlpmox.withusdone.com/', text: '자동차보험예상' },
+            { link: 'https://directlpmoy.withusdone.com/', text: '다이렉트차보험' },
+            { link: 'https://directlpmoz.withusdone.com/', text: '인터넷다이렉트보험' },
+            { link: 'https://directmpmoa.withusdone.com/', text: '자동차보험만료' },
+            { link: 'https://directmpmob.withusdone.com/', text: '자동차보험가입시간' },
+            { link: 'https://directmpmoc.withusdone.com/', text: '자동차첫보험료' },
+            { link: 'https://directmpmod.withusdone.com/', text: '내차자동차보험' },
+            { link: 'https://directmpmoe.withusdone.com/', text: '자동차보험료카드결제' },
+            { link: 'https://directmpmof.withusdone.com/', text: '자동차필수보험' },
+            { link: 'https://directmpmog.withusdone.com/', text: '자동차책임보험보상' },
+            { link: 'https://directmpmoh.withusdone.com/', text: '르노5보험료' },
+            { link: 'https://directmpmoi.withusdone.com/', text: '르노 클리오 보험료' },
+            { link: 'https://directmpmoj.withusdone.com/', text: '자동차보험료저렴한곳' },
+            { link: 'https://directmpmok.withusdone.com/', text: '화물차자동차보험' },
+            { link: 'https://directmpmol.withusdone.com/', text: '자동차보험료예상' },
+            { link: 'https://directmpmom.withusdone.com/', text: '자동차다이렉트보험견적' },
+            { link: 'https://directmpmon.withusdone.com/', text: '다이렉트보험비교견적' },
+            { link: 'https://directmpmoo.withusdone.com/', text: '다이렉트자동차보험가입' },
+            { link: 'https://directmpmop.withusdone.com/', text: '자동차다이렉트보험추천' },
+            { link: 'https://directmpmoq.withusdone.com/', text: '자동차보험다이렉트비교사이트' },
+            { link: 'https://directmpmor.withusdone.com/', text: '자동차보험가입이력' },
+            { link: 'https://directmpmos.withusdone.com/', text: '개인자동차보험' },
+            { link: 'https://directmpmot.withusdone.com/', text: '자동차보험누구나운전' },
+            { link: 'https://directmpmou.withusdone.com/', text: '자동차보험금계산조회' },
+            { link: 'https://directmpmov.withusdone.com/', text: '자동차종합보험비교' },
+            { link: 'https://directmpmow.withusdone.com/', text: '차량보험료비교' },
+            { link: 'https://directmpmox.withusdone.com/', text: '19살자동차보험' },
+            { link: 'https://directmpmoy.withusdone.com/', text: '만30세자동차보험' },
+            { link: 'https://directmpmoz.withusdone.com/', text: '법인차량보험료' },
+            { link: 'https://directnpmoa.withusdone.com/', text: '법인차자동차보험' },
+            { link: 'https://directnpmob.withusdone.com/', text: '캠핑카자동차보험' },
+            { link: 'https://directnpmoc.withusdone.com/', text: '만28세자동차보험료' },
+            { link: 'https://directnpmod.withusdone.com/', text: '자동차보험산출' },
+            { link: 'https://directnpmoe.withusdone.com/', text: '법인차량자동차보험' },
+            { link: 'https://directnpmof.withusdone.com/', text: 'K8보험료' },
+            { link: 'https://directnpmog.withusdone.com/', text: '자동차보험검색' },
+            { link: 'https://directnpmoh.withusdone.com/', text: '트위지보험' },
+            { link: 'https://directnpmoi.withusdone.com/', text: '자동차다이렉트보험계산' },
+            { link: 'https://directnpmoj.withusdone.com/', text: '자동차보험다이렉트차이' },
+            { link: 'https://directnpmok.withusdone.com/', text: '차보험다이렉트' },
+            { link: 'https://directnpmol.withusdone.com/', text: '다이렉트보험추천' },
+            { link: 'https://directnpmom.withusdone.com/', text: '23살차보험료' },
+            { link: 'https://directnpmon.withusdone.com/', text: '차량보험비' },
+            { link: 'https://directnpmoo.withusdone.com/', text: '자동차보험어플' },
+            { link: 'https://directnpmop.withusdone.com/', text: '자동차보험전화가입' },
+            { link: 'https://directnpmoq.withusdone.com/', text: '벤츠S클래스보험료' },
+            { link: 'https://directnpmor.withusdone.com/', text: '자동차보험종합보험' },
+            { link: 'https://directnpmos.withusdone.com/', text: '자동차보험사종류' },
+            { link: 'https://directnpmot.withusdone.com/', text: '자동차보험통합' },
+            { link: 'https://directnpmou.withusdone.com/', text: '첫차자동차보험료' },
+            { link: 'https://directnpmov.withusdone.com/', text: '업무용차량보험' },
+            { link: 'https://directnpmow.withusdone.com/', text: '22살차보험료' },
+            { link: 'https://directnpmox.withusdone.com/', text: '다이렉트자동차보험싼곳' },
+            { link: 'https://directnpmoy.withusdone.com/', text: '다이렉트자동차보험조회' },
+            { link: 'https://directnpmoz.withusdone.com/', text: '차종별보험료' },
+            { link: 'https://directopmoa.withusdone.com/', text: '다이렉트자동차보험견적비교사이트' },
+            { link: 'https://directopmob.withusdone.com/', text: '저렴한다이렉트자동차보험' },
+            { link: 'https://directopmoc.withusdone.com/', text: '자동차보험비교혜택' },
+            { link: 'https://directopmod.withusdone.com/', text: '자동차보험료분할납부' },
+            { link: 'https://directopmoe.withusdone.com/', text: '1톤트럭보험' },
+            { link: 'https://directopmof.withusdone.com/', text: '자동차의무보험가격' },
+            { link: 'https://directopmog.withusdone.com/', text: '자차보험조회' },
+            { link: 'https://directopmoh.withusdone.com/', text: '자동차보험드는법' },
+            { link: 'https://directopmoi.withusdone.com/', text: '자차보험가격' },
+            { link: 'https://directopmoj.withusdone.com/', text: '자동차보험할인특약' },
+            { link: 'https://directopmok.withusdone.com/', text: '자동차보험들기' },
+            { link: 'https://directopmol.withusdone.com/', text: '자동차보험전연령' },
+            { link: 'https://directopmom.withusdone.com/', text: '자동차보험12개월' },
+            { link: 'https://directopmon.withusdone.com/', text: '무쏘 ev 보험료' },
+            { link: 'https://directopmoo.withusdone.com/', text: '인터넷자동차보험비교견적사이트' },
+            { link: 'https://directopmop.withusdone.com/', text: '자동차보험견적사이트' },
+            { link: 'https://directopmoq.withusdone.com/', text: '자동차보험비교사이트순위' },
+            { link: 'https://directopmor.withusdone.com/', text: '자동차보험료다이렉트' },
+            { link: 'https://directopmos.withusdone.com/', text: '차량보험견적' },
+            { link: 'https://directopmot.withusdone.com/', text: '차보험견적' },
+            { link: 'https://directopmou.withusdone.com/', text: '자동차보험비교하기' },
+            { link: 'https://directopmov.withusdone.com/', text: '자동차보험가입하기' },
+            { link: 'https://directopmow.withusdone.com/', text: 'BMW자동차보험' },
+            { link: 'https://directopmox.withusdone.com/', text: '자동차다이렉트보험순위' },
+            { link: 'https://directopmoy.withusdone.com/', text: '차량다이렉트보험' },
+            { link: 'https://directopmoz.withusdone.com/', text: '자동차보험다이렉트가입' },
+            { link: 'https://directppmoa.withusdone.com/', text: '자동차보험료산정' },
+            { link: 'https://directppmob.withusdone.com/', text: '자동차보험어디' },
+            { link: 'https://directppmoc.withusdone.com/', text: '자동차보험가입비교' },
+            { link: 'https://directppmod.withusdone.com/', text: '자동차비교보험' },
+            { link: 'https://directppmoe.withusdone.com/', text: '자동차보험다이렉트비교견적' },
+            { link: 'https://directppmof.withusdone.com/', text: '자동차다이렉트보험종류' },
+            { link: 'https://directppmog.withusdone.com/', text: '다이렉트자동차보험종류' },
+            { link: 'https://directppmoh.withusdone.com/', text: '차보험료견적' },
+            { link: 'https://directppmoi.withusdone.com/', text: '다이렉트보험자동차' },
+            { link: 'https://directppmoj.withusdone.com/', text: '다이렉트자동차보험할인' },
+            { link: 'https://directppmok.withusdone.com/', text: '다이렉트자동차보험계산' },
+            { link: 'https://directppmol.withusdone.com/', text: '다이렉트자동차보험혜택' },
+            { link: 'https://directppmom.withusdone.com/', text: '사업자자동차보험' },
+            { link: 'https://directppmon.withusdone.com/', text: '차보험비교견적' },
+            { link: 'https://directppmoo.withusdone.com/', text: '자동차다이렉트보험사' },
+            { link: 'https://directppmop.withusdone.com/', text: '자동차보험비교조회' },
+            { link: 'https://directppmoq.withusdone.com/', text: '차보험계산기' },
+            { link: 'https://directppmor.withusdone.com/', text: '자동차다이렉트보험비교사이트' },
+            { link: 'https://directppmos.withusdone.com/', text: '다이렉트자동차보험저렴' },
+            { link: 'https://directppmot.withusdone.com/', text: '자동차보험료월납' },
+            { link: 'https://directppmou.withusdone.com/', text: '자동차신규보험' },
+            { link: 'https://directppmov.withusdone.com/', text: '인터넷자동차보험비교사이트' },
+            { link: 'https://directppmow.withusdone.com/', text: '온라인자동차보험비교견적' },
+            { link: 'https://directppmox.withusdone.com/', text: '인터넷자동차보험료비교' },
+            { link: 'https://directppmoy.withusdone.com/', text: '다이렉트보험료비교견적' },
+            { link: 'https://directppmoz.withusdone.com/', text: '자동차보험다이렉트법인' },
+            { link: 'https://directpqmoa.withusdone.com/', text: '자동차보험견적내기' },
+            { link: 'https://directpqmob.withusdone.com/', text: '자동차다이렉트보험가격비교' },
+            { link: 'https://directpqmoc.withusdone.com/', text: '커넥티드카할인' },
+            { link: 'https://directpqmod.withusdone.com/', text: '커넥티드카할인특약' },
+            { link: 'https://directpqmoe.withusdone.com/', text: '커넥티드카뜻과 보험과의 상관관계' },
+            { link: 'https://directpqmof.withusdone.com/', text: '전기차자동차보험료' },
+            { link: 'https://directpqmog.withusdone.com/', text: '전기차보험추천' },
+            { link: 'https://carspromotiona.withusdone.com/', text: '자동차보험추가' },
+            { link: 'https://carspromotionb.withusdone.com/', text: '자동차보험질권설정' },
+            { link: 'https://carspromotionc.withusdone.com/', text: '차보험계산' },
+            { link: 'https://carspromotiond.withusdone.com/', text: '자동차보험할증등급' },
+            { link: 'https://carspromotione.withusdone.com/', text: '자동차보험분할납부' }
+        ];
+
+        // 2. 카테고리 정의 (10개) 및 설명 문구
+        const categories = [
+            { name: "✨ 다이렉트 보험 마스터 전략", keywords: ['다이렉트', '비교', '견적', '인터넷', '계산', '저렴', '싸게'] },
+            { name: "🛡️ 의무 & 책임 보험 핵심", keywords: ['책임보험', '의무보험', '필수보험', '보상'] },
+            { name: "💲 보험료 절약 & 혜택 극대화", keywords: ['저렴', '싸게', '할인특약', '혜택', '분할납부', '카드결제'] },
+            { name: "🔄 가입/갱신/만료 생애 주기", keywords: ['가입', '신규', '갱신', '만료', '당일가입', '등록', '알아보기'] },
+            { name: "🚗 차종별 맞춤형 보험료 가이드", keywords: ['전기차', '화물차', '트럭', '캠핑카', '레이', '아이오닉9', '이쿼녹스', '제네시스', '카이엔', '코란도', '르노', 'K8', '벤츠', 'BMW', '무쏘'] },
+            { name: "👨‍👩‍👧‍👦 운전자 범위 & 연령 특화", keywords: ['누구나운전', '전연령', '19살', '22살', '23살', '만28세', '만30세', '40대', '첫차'] },
+            { name: "🏢 법인 & 업무용 차량 솔루션", keywords: ['법인', '업무용', '사업자'] },
+            { name: "🌐 커넥티드 & 특수 기술 보험", keywords: ['커넥티드카', '전기차'] },
+            { name: "🔍 보험 정보 조회 및 확인", keywords: ['조회', '확인', '이력', '가입내역', '순위', '점유율', '어디', '검색'] },
+            { name: "💰 보험료 산정 & 금융 처리", keywords: ['산출', '계산', '산정', '금계산', '월납', '질권설정'] }
+        ];
+
+        const linkDescriptions = {
+            '다이렉트': '보험사를 건너뛰고 바로 핵심 혜택을 잡는 초격차 다이렉트의 진실. 가장 스마트한 방법으로 보험을 디자인하세요.',
+            '비교': '수많은 선택지 속, 나에게 맞는 단 하나의 정답을 찾기 위한 치열한 보험 비교 전투. 현명한 당신의 결정을 기다립니다.',
+            '견적': '내 차의 가치를 숫자로 확인하는 냉철한 견적의 시간. 10분 만에 달라질 수 있는 당신의 보험료를 예상해보세요.',
+            '책임보험': '운전의 최소한의 윤리, 법적 의무를 완수하는 안전 장치. 책임 보험 없이는 도로에 발을 들이지 마세요.',
+            '의무보험': '선택이 아닌 필수, 모든 운전자가 지켜야 할 도로 위의 약속. 의무보험의 범위를 지금 바로 확인하세요.',
+            '저렴': '가성비와 가심비를 모두 잡는 비밀 전략. 보험료를 낮추는 숨겨진 키워드를 지금 해독하세요.',
+            '할인특약': '보험료 다이어트의 핵심! 놓치면 후회할, 당신의 운전 습관이 돈이 되는 마법의 할인 특약.',
+            '가입': '운전대를 잡는 순간, 함께 시작되는 새로운 보호막. 가장 빠르고 정확하게 보험에 합류하는 방법을 안내합니다.',
+            '갱신': '시간은 멈추지 않는다! 매년 돌아오는 보험 계약의 운명적인 갱신. 더 나은 조건으로 계약을 업데이트하세요.',
+            '만료': '보호막이 사라지기 직전의 카운트다운. 만료 전 반드시 확인해야 할 체크리스트로 불이익을 피하세요.',
+            '전기차': '미래의 모빌리티, 전기차를 위한 새로운 보험 설계. 배터리 특화 보장까지 꼼꼼하게 챙기세요.',
+            '화물차': '도로 위의 경제를 움직이는 화물차 운전자들을 위한 특화 보험. 짐칸의 무게만큼 책임감 있는 보장이 필요합니다.',
+            '첫차': '설레는 첫 운전, 하지만 보험료는 두렵다면? 첫차 운전자를 위한 최적의 가이드라인과 비용 절약 팁.',
+            '연령': '나이에 따라 달라지는 보험료의 비밀. 내 연령대에서 가장 저렴하게 가입하는 치트키를 발견하세요.',
+            '법인': '개인과 다른 법인의 복잡한 보험 세계. 기업의 자산을 지키는 가장 스마트한 법인 차량 보험 솔루션.',
+            '커넥티드카': '차가 똑똑해질수록 보험료는 내려간다! 첨단 기술과 보험료의 흥미로운 상관관계를 파헤칩니다.',
+            '조회': '내 보험 정보는 어디에? 궁금증을 한 번에 해소하는 간편 조회 서비스. 숨겨진 보험 정보를 찾아내세요.',
+            '산출': '복잡한 변수들을 한 번에 정리하는 보험료 계산의 공식. 오차 없는 정확한 보험료를 직접 산출해 보세요.',
+            '일반': '평범함 속에 숨겨진 특별함. 개인 차량 운전자를 위한 가장 기본적이지만 강력한 보험 설계의 정석.',
+            '차종별': '같은 브랜드라도 차종에 따라 보험료는 천차만별. 내 차의 모델에 최적화된 보험료를 찾아드립니다.',
+            '당일가입': '시간이 촉박할 때, 망설일 필요 없는 속도전. 오늘 바로 가입하고 오늘부터 안심하세요.',
+            '보상': '사고 후 가장 중요한 순간, 책임 보험 보상의 범위를 정확히 알고 권리를 행사하세요.',
+            '등록': '차량 등록과 동시에 완성되는 보험의 의무. 잊지 말고 신속하게 보험을 등록하는 절차를 확인하세요.',
+            '자차': '나 자신을 위한 가장 이기적인 투자. 내 차를 위한 자차 보험의 합리적인 가격과 범위를 확인하세요.'
+        };
+
+        // 3. 유틸리티 함수
+        const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // 배열 셔플 (Fisher-Yates)
+        const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        };
+
+        // 4. 링크 추출 및 카테고리 분류 로직
+        const totalLinksToPick = getRandomInt(103, 133);
+        const shuffledLinks = shuffleArray([...allLinks]);
+        const selectedLinks = shuffledLinks.slice(0, totalLinksToPick);
+
+        const categorizedLinks = categories.map(cat => ({
+            ...cat,
+            links: []
+        }));
+
+        // 링크를 카테고리에 할당
+        selectedLinks.forEach(linkObj => {
+            let assigned = false;
+            for (let category of categorizedLinks) {
+                // 키워드 매칭
+                const isMatch = category.keywords.some(keyword => linkObj.text.includes(keyword) || linkObj.text.toLowerCase().includes(keyword.toLowerCase()));
+                if (isMatch) {
+                    category.links.push(linkObj);
+                    assigned = true;
+                    break;
+                }
+            }
+            // 매칭되지 않은 링크는 '다이렉트 보험 마스터 전략'에 임시 할당
+            if (!assigned) {
+                categorizedLinks[0].links.push(linkObj);
+            }
+        });
+
+        // 링크가 8개 이상인 카테고리만 최종 선택
+        let finalCategories = categorizedLinks.filter(cat => cat.links.length >= 8);
+
+        // 카테고리가 8개 미만이면, 링크가 많은 순서대로 8개를 강제 선택
+        if (finalCategories.length < 8) {
+             finalCategories = categorizedLinks.sort((a, b) => b.links.length - a.links.length).slice(0, 8);
+        }
+        
+        // 카테고리가 18개 초과면, 링크가 많은 순서대로 18개를 강제 선택
+        if (finalCategories.length > 18) {
+             finalCategories = finalCategories.sort((a, b) => b.links.length - a.links.length).slice(0, 18);
+        }
+
+        // 카테고리 순서 랜덤화
+        shuffleArray(finalCategories);
+
+        // 5. HTML 렌더링
+        const container = document.getElementById('categories-container');
+        finalCategories.forEach(category => {
+            // 카테고리 내 링크 순서 랜덤화
+            shuffleArray(category.links);
+
+            const section = document.createElement('section');
+            section.className = 'category-section';
+
+            const title = document.createElement('h2');
+            title.textContent = category.name;
+            section.appendChild(title);
+
+            const list = document.createElement('ul');
+            list.className = 'link-list';
+
+            category.links.forEach(linkObj => {
+                const listItem = document.createElement('li');
+                listItem.className = 'link-item';
+
+                // 독특한 설명 문구 생성 로직
+                let description = '놓칠 수 없는 중요 정보.';
+                const textLower = linkObj.text.toLowerCase();
+                // 링크 텍스트에서 키워드를 찾아 가장 적절한 설명 매핑
+                for (const key in linkDescriptions) {
+                    if (textLower.includes(key.toLowerCase()) || linkObj.text.includes(key)) {
+                        description = linkDescriptions[key];
+                        break;
+                    }
+                }
+                
+                // 최종적으로 사용될 문구: [링크 텍스트] - [독특한 설명 문구]
+                const finalLinkText = `🔗 ${linkObj.text} <br> ${description}`;
+
+
+                // a 태그로 전체 문구와 링크를 감싸 새로운 탭에서 열리도록 설정
+                const linkElement = document.createElement('a');
+                linkElement.href = linkObj.link;
+                linkElement.target = '_blank'; // 새 탭
+                linkElement.rel = 'noopener noreferrer';
+                linkElement.innerHTML = finalLinkText;
+
+                const paragraph = document.createElement('p');
+                paragraph.appendChild(linkElement);
+
+                listItem.appendChild(paragraph);
+                list.appendChild(listItem);
+            });
+
+            section.appendChild(list);
+            container.appendChild(section);
+        });
+
+    </script>
+</body>
 </html>
